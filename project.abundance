@@ -14,11 +14,11 @@
     },
     {
       "atomType": "Code",
-      "x": 0.37043054427294886,
-      "y": 0.5125348189415042,
+      "x": 0.37367993501218516,
+      "y": 0.3983286908077995,
       "uniqueID": "id-403",
       "codeVersion": 1,
-      "code": "/**\n Inputs for this Code Atom:\n - Takes a single geometry input \"A\" and returns its width (X size) as measured by the bounding box.\n*/\nInputs = [\n  { inputName: \"A\", type: \"geometry\", defaultValue: null }\n]\n\nif (!A) {\n  // No input provided — return null to indicate absence.\n  return null\n}\n\n// Get bounding box of A. boundsA.min and boundsA.max are arrays [x, y, z]\nlet boundsA = await GetBounds(A);\nlet min = boundsA.min;\nlet max = boundsA.max;\n\n// Compute width along X (maxX - minX)\nlet width = max[0] - min[0];\n\n// Ensure a non-negative numeric result\nwidth = typeof width === 'number' && isFinite(width) ? Math.max(0, width) : null;\n\nreturn width;"
+      "code": "/**\n Inputs for this Code Atom:\n - Takes a single geometry input \"A\" and returns its width (X size) as measured by the bounding box.\n*/\nInputs = [\n  { inputName: \"A\", type: \"geometry\", defaultValue: null }\n]\n\nif (!A) {\n  // No input provided — return null to indicate absence.\n  return null\n}\n\n// Get bounding box of A. boundsA.min and boundsA.max are arrays [x, y, z]\nlet boundsA = await GetBounds(A);\nlet min = boundsA.min;\nlet max = boundsA.max;\n\n// Compute height along Y (maxY - minY)\nlet Y = max[1] - min[1];\n\n// Ensure a non-negative numeric result\nY = typeof Y === 'number' && isFinite(Y) ? Math.max(0, Y) : null;\n\nreturn Y;"
     },
     {
       "atomType": "Input",
@@ -27,52 +27,18 @@
       "uniqueID": "id-406",
       "name": "Geometry",
       "type": "geometry"
-    },
-    {
-      "atomType": "Rectangle",
-      "x": 0.6815597075548334,
-      "y": 0.7047353760445683,
-      "uniqueID": "id-410",
-      "ioValues": [
-        {
-          "name": "x length",
-          "ioValue": 10
-        },
-        {
-          "name": "y length",
-          "ioValue": 40,
-          "currentEquation": "40"
-        }
-      ]
-    },
-    {
-      "atomType": "Extrude",
-      "x": 0.7815597075548334,
-      "y": 0.7047353760445683,
-      "uniqueID": "id-414",
-      "ioValues": [
-        {
-          "name": "height",
-          "ioValue": 10
-        }
-      ]
     }
   ],
   "allConnectors": [
     {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-403",
+      "ap2ID": "id-401"
+    },
+    {
       "ap2Name": "A",
       "ap1ID": "id-406",
       "ap2ID": "id-403"
-    },
-    {
-      "ap2Name": "geometry",
-      "ap1ID": "id-410",
-      "ap2ID": "id-414"
-    },
-    {
-      "ap2Name": "number or geometry",
-      "ap1ID": "id-414",
-      "ap2ID": "id-401"
     }
   ],
   "ioValues": [
